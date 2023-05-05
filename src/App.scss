@@ -6,6 +6,10 @@
 }
 
 .app-container {
-  border: 1px solid red;
   display: flex;
+  height: 100vh;
+
+  main {
+    flex: 80%;
+  }
 }

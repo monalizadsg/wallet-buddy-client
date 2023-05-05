@@ -1,10 +1,13 @@
+import { Heading } from "@chakra-ui/react";
 import profile from "../assets/avatar1.jpg";
 import "./Header.scss";
 
 function Header() {
   return (
     <div className='header'>
-      <h1>Welcome back, Mona</h1>
+      <Heading as='h2' size='lg'>
+        Welcome back, Mona
+      </Heading>
       <img className='avatar' src={profile} alt='profile' />
     </div>
   );
