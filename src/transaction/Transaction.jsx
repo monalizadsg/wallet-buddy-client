@@ -6,8 +6,11 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import "./Transaction.scss";
 import React from "react";
+import FormDialog from "../components/FormDialog";
+import TransactionForm from "./TransactionForm";
 
 const transactionData = [
   {
@@ -48,6 +51,7 @@ const dataByDate = transactionData.reduce((group, item) => {
 }, {});
 
 function Transaction() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div className='transaction-container'>
       <div className='left-col'>
@@ -55,9 +59,17 @@ function Transaction() {
           <Heading as='h4' size='md'>
             Transactions
           </Heading>
-          <Button colorScheme='teal' variant='outline' size='xs'>
+          <Button
+            onClick={onOpen}
+            colorScheme='teal'
+            variant='outline'
+            size='xs'
+          >
             Add
           </Button>
+          <FormDialog title='Add Transaction' isOpen={isOpen} onClose={onClose}>
+            <TransactionForm />
+          </FormDialog>
         </div>
         <div className='content'>
           <div>
