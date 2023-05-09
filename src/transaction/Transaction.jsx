@@ -11,6 +11,7 @@ import "./Transaction.scss";
 import React from "react";
 import FormDialog from "../components/FormDialog";
 import TransactionForm from "./TransactionForm";
+import Header from "./../components/Header";
 
 const transactionData = [
   {
@@ -54,6 +55,7 @@ function Transaction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div className='transaction-container'>
+      <Header />
       <div className='left-col'>
         <div className='title'>
           <Heading as='h4' size='md'>
