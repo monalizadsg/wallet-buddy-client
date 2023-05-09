@@ -1,50 +1,42 @@
-import { Flex, Text, Icon, Menu, MenuButton } from "@chakra-ui/react";
-import { Link, Outlet } from "react-router-dom";
-
+import { Flex, Text, Icon } from "@chakra-ui/react";
+import { NavLink, Outlet } from "react-router-dom";
 import { TbArrowsDoubleNeSw, TbPigMoney } from "react-icons/tb";
 import "./SideNav.scss";
 import { PropTypes } from "prop-types";
 
 function SideNav() {
   return (
-    <div className='sidenav'>
-      <div className='logo'>BudgetTrackr</div>
-      <Flex
-        p='5%'
-        paddingLeft={10}
-        paddingRight={10}
-        flexDir='column'
-        w='100%'
-        as='nav'
-      >
-        <NavItem icon={TbArrowsDoubleNeSw} title='Transaction' path='/' />
-        <NavItem icon={TbPigMoney} title='Budget' path='/budget' />
+    <>
+      <Flex flex='20%' flexDir='column' className='sidenav'>
+        <Flex className='logo' justifyContent='center' alignItems='center'>
+          BudgetTrackr
+        </Flex>
+        <Flex
+          p='5%'
+          paddingLeft={8}
+          paddingRight={8}
+          flexDir='column'
+          w='100%'
+          as='nav'
+        >
+          <NavItem icon={TbArrowsDoubleNeSw} title='Transaction' path='/' />
+          <NavItem icon={TbPigMoney} title='Budget' path='/budget' />
+        </Flex>
       </Flex>
       <Outlet />
-    </div>
+    </>
   );
 }
 
 function NavItem({ icon, title, path }) {
   return (
-    <Flex mt={30} w='100%'>
-      <Menu>
-        <Link
-          backgroundColor={"gray.200"}
-          p={3}
-          borderRadius={8}
-          w='100%'
-          _hover={{ textDecor: "none", backgroundColor: "gray.300" }}
-          to={path}
-        >
-          <MenuButton w='100%'>
-            <Flex>
-              <Icon as={icon} fontSize='xl' color='gray.500' />
-              <Text ml={5}>{title}</Text>
-            </Flex>
-          </MenuButton>
-        </Link>
-      </Menu>
+    <Flex mt={30} w='100%' className='nav-item'>
+      <NavLink to={path}>
+        <Flex>
+          <Icon as={icon} fontSize='xl' color='gray.500' />
+          <Text ml={5}>{title}</Text>
+        </Flex>
+      </NavLink>
     </Flex>
   );
 }
