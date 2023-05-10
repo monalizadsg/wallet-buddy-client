@@ -30,7 +30,7 @@ function SideNav() {
 
 function NavItem({ icon, title, path }) {
   return (
-    <Flex mt={30} w='100%' className='nav-item'>
+    <Flex w='100%' className='nav-item'>
       <NavLink to={path}>
         <Flex>
           <Icon as={icon} fontSize='xl' color='gray.500' />
