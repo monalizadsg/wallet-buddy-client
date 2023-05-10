@@ -1,12 +1,5 @@
 .transaction-container {
-  display: flex;
-  height: calc(100vh - 80px);
-
   .left-col {
-    flex: 55%;
-    padding: 20px;
-    border-right: 2px solid rgb(226, 226, 226);
-
     .content {
       .date {
         opacity: 0.8;
@@ -36,24 +29,7 @@
   }
 
   .right-col {
-    flex: 35%;
-    display: flex;
-    flex-direction: column;
-
-    .row {
-      padding: 20px;
-
-      &:first-child {
-        border-bottom: 2px solid rgb(226, 226, 226);
-      }
-
-      &:last-child {
-        flex: 1;
-      }
-    }
-
     .content {
-      display: flex;
       flex-direction: column;
       gap: 10px;
     }
