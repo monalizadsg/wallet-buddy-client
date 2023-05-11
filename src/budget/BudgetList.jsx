@@ -9,8 +9,11 @@ import {
   IconButton,
   Box,
 } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { MdFoodBank } from "react-icons/md";
 import ProgressBar from "../components/ProgressBar";
+import FormDialog from "../components/FormDialog";
+import BudgetForm from "./BudgetForm";
 
 const budgetData = [
   {
@@ -40,6 +43,8 @@ const budgetData = [
 ];
 
 function BudgetList() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const budgetList = budgetData.map((item, index) => (
     <Card key={index} bgColor='gray.300'>
       <CardBody>
@@ -70,9 +75,12 @@ function BudgetList() {
         <Heading as='h4' size='md'>
           Budget
         </Heading>
-        <Button colorScheme='teal' variant='outline' size='xs'>
+        <Button onClick={onOpen} colorScheme='teal' variant='outline' size='xs'>
           Add
         </Button>
+        <FormDialog title='Add Transaction' isOpen={isOpen} onClose={onClose}>
+          <BudgetForm />
+        </FormDialog>
       </Flex>
       <Flex flexDir='column'>
         <Stack spacing={4}>{budgetList}</Stack>
