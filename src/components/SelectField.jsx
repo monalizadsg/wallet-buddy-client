@@ -1,17 +1,13 @@
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-function SelectField() {
+function SelectField({ label, children }) {
   return (
     <FormControl isRequired mb={3}>
       <FormLabel mb={1} fontSize='xs'>
-        Category
+        {label}
       </FormLabel>
-      <Select>
-        <option value='option1'>Groceries</option>
-        <option value='option2'>Hydro</option>
-        <option value='option3'>Dining</option>
-      </Select>
+      <Select>{children}</Select>
     </FormControl>
   );
 }
@@ -21,6 +17,7 @@ SelectField.propTypes = {
   type: PropTypes.string,
   onChange: PropTypes.func,
   error: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default SelectField;
