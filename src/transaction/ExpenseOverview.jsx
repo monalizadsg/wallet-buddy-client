@@ -1,4 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/react";
+import ExpenseBarChart from "./ExpenseBarChart";
 
 function ExpenseOverview() {
   return (
@@ -8,7 +9,12 @@ function ExpenseOverview() {
           Expense this month
         </Heading>
       </div>
-      <div className='content'>No data at this moment.</div>
+      <Flex flexDir='column' className='content'>
+        <Flex w='80%' alignSelf='center'>
+          <ExpenseBarChart />
+        </Flex>
+        {/* No data at this moment. */}
+      </Flex>
     </Flex>
   );
 }
