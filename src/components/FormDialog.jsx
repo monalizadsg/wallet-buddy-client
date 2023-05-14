@@ -7,7 +7,6 @@ import {
   ModalFooter,
   ModalCloseButton,
   Button,
-  Flex,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
@@ -33,7 +32,7 @@ function FormDialog({ title, isOpen, onClose, children }) {
 FormDialog.propTypes = {
   title: PropTypes.string,
   isOpen: PropTypes.bool,
-  onClose: PropTypes.bool,
+  onClose: PropTypes.func,
   children: PropTypes.node.isRequired,
 };
 

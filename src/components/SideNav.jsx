@@ -42,7 +42,7 @@ function NavItem({ icon, title, path }) {
 }
 
 NavItem.propTypes = {
-  icon: PropTypes.element,
+  icon: PropTypes.func,
   title: PropTypes.string,
   path: PropTypes.string,
 };
