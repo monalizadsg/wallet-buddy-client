@@ -6,16 +6,29 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import ProgressBar from "../components/ProgressBar";
 
 function SpendingLimit() {
+  const navigate = useNavigate();
+
+  const routeChange = () => {
+    let path = "/budget";
+    navigate(path);
+  };
+
   return (
     <Flex flexDir='column' w='100%'>
       <Flex className='title'>
         <Heading as='h4' size='md'>
           Spending Limits
         </Heading>
-        <Button colorScheme='teal' variant='outline' size='xs'>
+        <Button
+          onClick={() => routeChange()}
+          colorScheme='teal'
+          variant='outline'
+          size='xs'
+        >
           Edit
         </Button>
       </Flex>
