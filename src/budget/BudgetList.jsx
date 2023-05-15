@@ -8,9 +8,10 @@ import {
   Stack,
   IconButton,
   Box,
+  Icon,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { MdFoodBank } from "react-icons/md";
+import { MdFoodBank, MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import ProgressBar from "../components/ProgressBar";
 import FormDialog from "../components/FormDialog";
 import BudgetForm from "./BudgetForm";
@@ -48,18 +49,34 @@ function BudgetList() {
   const budgetList = budgetData.map((item, index) => (
     <Card key={index} bgColor='gray.300'>
       <CardBody>
-        <Flex gap={5} alignItems='center'>
-          <IconButton
-            variant='outline'
-            colorScheme='teal'
-            aria-label='Call Sage'
-            fontSize='30px'
-            borderRadius='50%'
-            icon={<MdFoodBank />}
-          />
-          <Flex flexDir='column'>
-            <Text>{item.category}</Text>
-            <Text>{`$${item.amountLimit.toFixed(2)}`}</Text>
+        <Flex justifyContent='space-between'>
+          <Flex gap={5} alignItems='center'>
+            <IconButton
+              variant='outline'
+              colorScheme='teal'
+              aria-label='Call Sage'
+              fontSize='30px'
+              borderRadius='50%'
+              icon={<MdFoodBank />}
+            />
+            <Flex flexDir='column'>
+              <Text>{item.category}</Text>
+              <Text>{`$${item.amountLimit.toFixed(2)}`}</Text>
+            </Flex>
+          </Flex>
+          <Flex gap={1}>
+            <Icon
+              as={MdOutlineEdit}
+              cursor='pointer'
+              opacity={0.8}
+              _hover={{ color: "teal.500", opacity: 1 }}
+            />
+            <Icon
+              as={MdDeleteOutline}
+              cursor='pointer'
+              opacity={0.8}
+              _hover={{ color: "teal.500", opacity: 1 }}
+            />
           </Flex>
         </Flex>
         <Box width='100%' mt={2}>
