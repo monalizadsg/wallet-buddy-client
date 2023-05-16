@@ -9,12 +9,23 @@ import {
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../components/ProgressBar";
 
+const limitData = {
+  expenseTotal: 2813,
+  limitAmount: 3200,
+};
+
 function SpendingLimit() {
   const navigate = useNavigate();
 
   const routeChange = () => {
     let path = "/budget";
     navigate(path);
+  };
+
+  const getPercentage = () => {
+    const { expenseTotal, limitAmount } = limitData;
+    const percentage = (expenseTotal / limitAmount) * 100;
+    return Math.round(percentage);
   };
 
   return (
@@ -38,18 +49,19 @@ function SpendingLimit() {
         </Text>
         <Flex alignItems='center'>
           <Text as='b' mr={2} fontSize='xl'>
-            $1,540.00
+            {`$${limitData.expenseTotal}.00`}
           </Text>
-          <Text opacity={0.8}>of $1,600.00</Text>
+          <Text opacity={0.6}>of {`$${limitData.limitAmount}.00`}</Text>
         </Flex>
-        <ProgressBar />
-        {/* TODO: show only alert text if almost reach the limit*/}
-        <Alert status='error' className='alert-msg'>
-          <AlertIcon />
-          <Text fontSize='sm'>
-            Your spending limit has almost reached the limit
-          </Text>
-        </Alert>
+        <ProgressBar percentage={getPercentage()} />
+        {getPercentage() >= 80 && (
+          <Alert status='error' className='alert-msg'>
+            <AlertIcon />
+            <Text fontSize='sm'>
+              Your spending limit has almost reached the limit
+            </Text>
+          </Alert>
+        )}
       </Flex>
     </Flex>
   );
