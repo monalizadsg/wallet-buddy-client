@@ -15,29 +15,34 @@ import { MdFoodBank, MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import ProgressBar from "../components/ProgressBar";
 import FormDialog from "../components/FormDialog";
 import BudgetForm from "./BudgetForm";
+import { getPercentage } from "../commons/utils";
 
 const budgetData = [
   {
     id: 1,
     category: "Food",
     periodType: "Weekly",
+    expense: 60,
     amountLimit: 100,
   },
   {
     id: 2,
     category: "Rent",
     periodType: "Monthly",
+    expense: 1750,
     amountLimit: 1750,
   },
   {
     id: 3,
     category: "Hydro",
     periodType: "Monthly",
+    expense: 30,
     amountLimit: 30,
   },
   {
     id: 4,
     category: "Gifts",
+    expense: 100,
     periodType: "Yearly",
     amountLimit: 1000,
   },
@@ -80,7 +85,7 @@ function BudgetList() {
           </Flex>
         </Flex>
         <Box width='100%' mt={2}>
-          <ProgressBar />
+          <ProgressBar value={getPercentage(item.expense, item.amountLimit)} />
         </Box>
       </CardBody>
     </Card>

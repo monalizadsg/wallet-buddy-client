@@ -8,24 +8,20 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../components/ProgressBar";
+import { getPercentage } from "../commons/utils";
 
 const limitData = {
-  expenseTotal: 2813,
-  limitAmount: 3200,
+  expense: 2813,
+  limit: 3200,
 };
 
 function SpendingLimit() {
   const navigate = useNavigate();
+  const percentage = getPercentage(limitData.expense, limitData.limit);
 
   const routeChange = () => {
     let path = "/budget";
     navigate(path);
-  };
-
-  const getPercentage = () => {
-    const { expenseTotal, limitAmount } = limitData;
-    const percentage = (expenseTotal / limitAmount) * 100;
-    return Math.round(percentage);
   };
 
   return (
@@ -49,12 +45,12 @@ function SpendingLimit() {
         </Text>
         <Flex alignItems='center'>
           <Text as='b' mr={2} fontSize='xl'>
-            {`$${limitData.expenseTotal}.00`}
+            {`$${limitData.expense}.00`}
           </Text>
-          <Text opacity={0.6}>of {`$${limitData.limitAmount}.00`}</Text>
+          <Text opacity={0.6}>of {`$${limitData.limit}.00`}</Text>
         </Flex>
-        <ProgressBar percentage={getPercentage()} />
-        {getPercentage() >= 80 && (
+        <ProgressBar value={percentage} />
+        {percentage >= 80 && (
           <Alert status='error' className='alert-msg'>
             <AlertIcon />
             <Text fontSize='sm'>

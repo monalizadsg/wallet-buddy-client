@@ -1,19 +1,19 @@
 import { Flex, Box, Progress, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-function ProgressBar({ percentage }) {
+function ProgressBar({ value }) {
   return (
     <Flex justifyContent='space-between' alignItems='center'>
       <Box width='90% '>
-        <Progress value={percentage} />
+        <Progress value={value} />
       </Box>
-      <Text fontSize='lg'>{`${percentage}%`}</Text>
+      <Text fontSize='lg'>{`${value}%`}</Text>
     </Flex>
   );
 }
 
 ProgressBar.propTypes = {
-  percentage: PropTypes.number,
+  value: PropTypes.number,
 };
 
 export default ProgressBar;
