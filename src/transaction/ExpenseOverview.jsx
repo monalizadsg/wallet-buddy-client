@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, Box } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import ExpenseBarChart from "./ExpenseBarChart";
 import { expenseData } from "../commons/utils";
 
