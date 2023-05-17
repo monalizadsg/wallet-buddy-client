@@ -1,8 +1,9 @@
 import React from "react";
-import { Heading, Button, Text, Flex } from "@chakra-ui/react";
+import { Heading, Button, Text, Flex, Icon } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import FormDialog from "../components/FormDialog";
 import TransactionForm from "./TransactionForm";
+import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 
 const transactionData = [
   {
@@ -44,6 +45,7 @@ const dataByDate = transactionData.reduce((group, item) => {
 
 function TransactionList() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex flexDir='column' w='100%'>
       <div className='title'>
@@ -65,20 +67,45 @@ function TransactionList() {
                 <div className='date'>{date}</div>
                 {values.map((item, index) => {
                   return (
-                    <div className='item' key={index}>
+                    <Flex
+                      className='item'
+                      key={index}
+                      style={{
+                        backgroundColor: "#EEEFEA",
+                        // border: "1px solid red",
+                        borderRadius: 10,
+                        marginBottom: 12,
+                      }}
+                    >
                       <div className='item-details'>
                         <span className='icon'></span>
                         <div>
-                          <Text fontSize='sm'>{item.name}</Text>
+                          <Text fontSize='sm' as='b'>
+                            {item.name}
+                          </Text>
                           <Text fontSize='xs'>{item.category}</Text>
                         </div>
                       </div>
-                      <div className='item-amount'>
-                        <Text fontSize='sm'>
+                      <Flex className='item-amount' alignItems='center' gap={6}>
+                        <Text fontSize='sm' as='b'>
                           {`$${item.amount.toFixed(2)}`}
                         </Text>
-                      </div>
-                    </div>
+                        <Flex gap={2}>
+                          <Icon
+                            as={MdOutlineEdit}
+                            cursor='pointer'
+                            opacity={0.5}
+                            _hover={{ color: "teal.500", opacity: 1 }}
+                          />
+                          <Icon
+                            as={MdDeleteOutline}
+                            cursor='pointer'
+                            opacity={0.5}
+                            _hover={{ color: "teal.500", opacity: 1 }}
+                          />
+                        </Flex>
+                      </Flex>
+                    </Flex>
                   );
                 })}
               </React.Fragment>
