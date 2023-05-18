@@ -13,11 +13,12 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { MdFoodBank, MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
+import { MdFoodBank, MdOutlineEdit } from "react-icons/md";
 import ProgressBar from "../components/ProgressBar";
 import FormDialog from "../components/FormDialog";
 import BudgetForm from "./BudgetForm";
 import { getPercentage } from "../commons/utils";
+import DeleteButton from "../components/DeleteButton";
 
 const budgetData = [
   {
@@ -90,12 +91,7 @@ function BudgetList() {
               _hover={{ color: "teal.500", opacity: 1 }}
               onClick={handleOnClickEdit}
             />
-            <Icon
-              as={MdDeleteOutline}
-              cursor='pointer'
-              opacity={0.8}
-              _hover={{ color: "teal.500", opacity: 1 }}
-            />
+            <DeleteButton title='Budget' />
           </Flex>
         </Flex>
         <Box width='100%' mt={2}>

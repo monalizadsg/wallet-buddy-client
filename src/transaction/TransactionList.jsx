@@ -3,7 +3,8 @@ import { Heading, Button, Text, Flex, Icon } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import FormDialog from "../components/FormDialog";
 import TransactionForm from "./TransactionForm";
-import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
+import DeleteButton from "../components/DeleteButton";
 
 const transactionData = [
   {
@@ -119,12 +120,7 @@ function TransactionList() {
                             _hover={{ color: "teal.500", opacity: 1 }}
                             onClick={handleOnClickEdit}
                           />
-                          <Icon
-                            as={MdDeleteOutline}
-                            cursor='pointer'
-                            opacity={0.5}
-                            _hover={{ color: "teal.500", opacity: 1 }}
-                          />
+                          <DeleteButton title='Transaction' />
                         </Flex>
                       </Flex>
                     </Flex>
