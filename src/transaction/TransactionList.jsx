@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Heading, Button, Text, Flex, Icon } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import FormDialog from "../components/FormDialog";
@@ -45,6 +45,17 @@ const dataByDate = transactionData.reduce((group, item) => {
 
 function TransactionList() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleOnClickEdit = () => {
+    onOpen();
+    setIsEditing(true);
+  };
+
+  const handleOnClickAdd = () => {
+    onOpen();
+    setIsEditing(false);
+  };
 
   return (
     <Flex flexDir='column' w='100%'>
@@ -52,10 +63,20 @@ function TransactionList() {
         <Heading as='h4' size='md'>
           Transactions
         </Heading>
-        <Button onClick={onOpen} colorScheme='teal' variant='outline' size='xs'>
+        <Button
+          onClick={handleOnClickAdd}
+          colorScheme='teal'
+          variant='outline'
+          size='xs'
+        >
           Add
         </Button>
-        <FormDialog title='Add Transaction' isOpen={isOpen} onClose={onClose}>
+        <FormDialog
+          title={`${isEditing ? "Edit" : "Add"} Transaction`}
+          isOpen={isOpen}
+          onClose={onClose}
+          isEdit={isEditing}
+        >
           <TransactionForm />
         </FormDialog>
       </div>
@@ -96,6 +117,7 @@ function TransactionList() {
                             cursor='pointer'
                             opacity={0.5}
                             _hover={{ color: "teal.500", opacity: 1 }}
+                            onClick={handleOnClickEdit}
                           />
                           <Icon
                             as={MdDeleteOutline}

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Flex,
   Heading,
@@ -50,6 +52,17 @@ const budgetData = [
 
 function BudgetList() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleOnClickEdit = () => {
+    onOpen();
+    setIsEditing(true);
+  };
+
+  const handleOnClickAdd = () => {
+    onOpen();
+    setIsEditing(false);
+  };
 
   const budgetList = budgetData.map((item, index) => (
     <Card key={index} bgColor='gray.300'>
@@ -75,6 +88,7 @@ function BudgetList() {
               cursor='pointer'
               opacity={0.8}
               _hover={{ color: "teal.500", opacity: 1 }}
+              onClick={handleOnClickEdit}
             />
             <Icon
               as={MdDeleteOutline}
@@ -97,10 +111,20 @@ function BudgetList() {
         <Heading as='h4' size='md'>
           Budget
         </Heading>
-        <Button onClick={onOpen} colorScheme='teal' variant='outline' size='xs'>
+        <Button
+          onClick={handleOnClickAdd}
+          colorScheme='teal'
+          variant='outline'
+          size='xs'
+        >
           Add
         </Button>
-        <FormDialog title='Add Transaction' isOpen={isOpen} onClose={onClose}>
+        <FormDialog
+          title={`${isEditing ? "Edit" : "Add"} Budget`}
+          isOpen={isOpen}
+          onClose={onClose}
+          isEdit={isEditing}
+        >
           <BudgetForm />
         </FormDialog>
       </Flex>
