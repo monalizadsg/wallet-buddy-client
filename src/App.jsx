@@ -8,11 +8,13 @@ import {
 } from "react-router-dom";
 import Budget from "./budget/Budget";
 import "./App.scss";
+import Dashboard from "./dashboard/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<SideNav />}>
-      <Route index element={<Transaction />} />
+      <Route index element={<Dashboard />} />
+      <Route path='/transaction' element={<Transaction />} />
       <Route path='/budget' element={<Budget />} />
     </Route>
   )
