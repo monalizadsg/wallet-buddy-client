@@ -1,6 +1,11 @@
 import { Flex, Text, Icon } from "@chakra-ui/react";
 import { NavLink, Outlet } from "react-router-dom";
-import { TbArrowsDoubleNeSw, TbPigMoney, TbLayoutGrid } from "react-icons/tb";
+import {
+  TbArrowsDoubleNeSw,
+  TbPigMoney,
+  TbLayoutGrid,
+  TbTargetArrow,
+} from "react-icons/tb";
 import "./SideNav.scss";
 import { PropTypes } from "prop-types";
 
@@ -26,6 +31,7 @@ function SideNav() {
             path='/transaction'
           />
           <NavItem icon={TbPigMoney} title='Budget' path='/budget' />
+          <NavItem icon={TbTargetArrow} title='Save & Invest' path='/savings' />
         </Flex>
       </Flex>
       <Outlet />

@@ -9,6 +9,7 @@ import {
 import Budget from "./budget/Budget";
 import "./App.scss";
 import Dashboard from "./dashboard/Dashboard";
+import SavingPlan from "./savingPlan/SavingPlan";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
       <Route index element={<Dashboard />} />
       <Route path='/transaction' element={<Transaction />} />
       <Route path='/budget' element={<Budget />} />
+      <Route path='/savings' element={<SavingPlan />} />
     </Route>
   )
 );
