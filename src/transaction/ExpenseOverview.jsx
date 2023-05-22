@@ -1,6 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import ExpenseBarChart from "./ExpenseBarChart";
-import { expenseData } from "../commons/utils";
+import { expenseData } from "../commons/data";
 
 function ExpenseOverview() {
   const isEmpty = false; // TODO: update the logic of this code

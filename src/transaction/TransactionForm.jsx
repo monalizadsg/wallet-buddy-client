@@ -1,12 +1,6 @@
 import SelectField from "../components/SelectField";
 import TextField from "../components/TextField";
-
-const categories = {
-  1: "Food",
-  2: "Hydro",
-  3: "Subscription",
-  4: "Rent",
-};
+import { categories } from "../commons/data";
 
 function TransactionForm() {
   return (

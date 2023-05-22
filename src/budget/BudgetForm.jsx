@@ -1,17 +1,11 @@
 import SelectField from "../components/SelectField";
 import TextField from "../components/TextField";
+import { categories } from "../commons/data";
 
 const periodType = {
   WEEKLY: "Weekly",
   MONTHLY: "Monthly",
   YEARLY: "Yearly",
-};
-
-const categories = {
-  1: "Food",
-  2: "Hydro",
-  3: "Subscription",
-  4: "Rent",
 };
 
 function BudgetForm() {

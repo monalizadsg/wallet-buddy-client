@@ -2,7 +2,7 @@ import { useState } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { expenseData } from "../commons/utils";
+import { expenseData } from "../commons/data";
 
 Chart.register(CategoryScale);
 
