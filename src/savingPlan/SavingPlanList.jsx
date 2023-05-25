@@ -49,7 +49,12 @@ function SavingPlanList() {
             />
             <Flex flexDir='column'>
               <Text>{item.name}</Text>
-              <Text>{`$${item.amount.toFixed(2)}`}</Text>
+              <Text>
+                {`$${item.savedAmount.toFixed(2)} `}
+                <span style={{ color: "gray", opacity: 0.8 }}>
+                  {`of $${item.targetAmount.toFixed(2)}`}
+                </span>
+              </Text>
             </Flex>
           </Flex>
           <Flex gap={1}>
@@ -64,7 +69,9 @@ function SavingPlanList() {
           </Flex>
         </Flex>
         <Box width='100%' mt={2}>
-          <ProgressBar value={getPercentage(item.amount, item.targetAmount)} />
+          <ProgressBar
+            value={getPercentage(item.savedAmount, item.targetAmount)}
+          />
         </Box>
       </CardBody>
     </Card>
