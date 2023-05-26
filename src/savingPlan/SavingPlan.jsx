@@ -1,6 +1,7 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import Header from "../components/Header";
 import SavingPlanList from "./SavingPlanList";
+import SavingsStatus from "./SavingsStatus";
 
 function SavingPlan() {
   return (
@@ -16,7 +17,19 @@ function SavingPlan() {
           <SavingPlanList />
         </Flex>
         <Flex flex='35%' flexDir='column'>
-          <h1>Saving Goals here</h1>
+          <Flex
+            flexDir='column'
+            p={6}
+            gap={2}
+            w='100%'
+            // border='1px solid red'
+            borderBottom='2px solid rgb(226, 226, 226)'
+          >
+            <Heading as='h4' size='md'>
+              Savings Status
+            </Heading>
+            <SavingsStatus />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
