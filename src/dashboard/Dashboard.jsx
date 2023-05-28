@@ -2,6 +2,8 @@ import { Flex, Heading, Grid, GridItem, Icon, Text } from "@chakra-ui/react";
 import { TbWallet } from "react-icons/tb";
 import { MdOutlineFoodBank } from "react-icons/md";
 import Header from "../components/Header";
+import SavingList from "../savingPlan/SavingList";
+import { savingsData } from "../commons/data";
 
 const transactionData = [
   {
@@ -45,6 +47,8 @@ const transactionData = [
     type: "income",
   },
 ];
+
+const newSavingsData = savingsData.slice(0, 2);
 
 function Dashboard() {
   return (
@@ -241,12 +245,7 @@ function Dashboard() {
                 See all
               </Text>
             </Flex>
-            <Flex flexDir='column' gap={5}>
-              <Flex border='1px solid red'>Savings item here</Flex>
-              <Flex border='1px solid red'>Savings item here</Flex>
-              <Flex border='1px solid red'>Savings item here</Flex>
-              <Flex border='1px solid red'>Savings item here</Flex>
-            </Flex>
+            <SavingList data={newSavingsData} readOnly />
           </Flex>
           <Flex border='1px solid green' flexDir='column' gap={3}>
             <Flex alignItems='center' justifyContent='space-between'>
