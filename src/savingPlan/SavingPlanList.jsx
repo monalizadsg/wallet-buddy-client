@@ -81,7 +81,7 @@ function SavingPlanList() {
     <Flex flexDir='column' w='100%' gap={5}>
       <Flex justifyContent='space-between'>
         <Heading as='h4' size='md'>
-          Savings Plan
+          Saving Plan
         </Heading>
         <Button
           onClick={handleOnClickAdd}

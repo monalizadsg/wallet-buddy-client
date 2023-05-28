@@ -13,7 +13,7 @@ import { MdFoodBank } from "react-icons/md";
 import { savingsData } from "../commons/data";
 import PropTypes from "prop-types";
 
-function SavingsStatus() {
+function SavingStatus() {
   return (
     <Tabs position='relative' variant='unstyled'>
       <TabList>
@@ -77,4 +77,4 @@ SavingTabPanel.propTypes = {
   item: PropTypes.array,
 };
 
-export default SavingsStatus;
+export default SavingStatus;

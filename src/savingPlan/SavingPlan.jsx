@@ -1,7 +1,8 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import Header from "../components/Header";
 import SavingPlanList from "./SavingPlanList";
-import SavingsStatus from "./SavingsStatus";
+import SavingStatus from "./SavingStatus";
+import SavingTransactions from "./SavingTransactions";
 
 function SavingPlan() {
   return (
@@ -26,10 +27,11 @@ function SavingPlan() {
             borderBottom='2px solid rgb(226, 226, 226)'
           >
             <Heading as='h4' size='md'>
-              Savings Status
+              Saving Status
             </Heading>
-            <SavingsStatus />
+            <SavingStatus />
           </Flex>
+          <SavingTransactions />
         </Flex>
       </Flex>
     </Flex>

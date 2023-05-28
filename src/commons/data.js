@@ -75,3 +75,34 @@ export const savingsData = [
     period: "Monthly",
   },
 ];
+
+export const savingsTranxData = [
+  {
+    id: 1,
+    name: "Emergencyy Fund",
+    amount: 500,
+    date: "March 25, 2023",
+    type: "savings",
+  },
+  {
+    id: 2,
+    name: "South Korea Travel",
+    amount: 100,
+    date: "March 25, 2023",
+    type: "savings",
+  },
+  {
+    id: 3,
+    name: "Home Deposit",
+    amount: 100,
+    date: "March 25, 2023",
+    type: "savings",
+  },
+  {
+    id: 4,
+    name: "Christmas Gifts 2023",
+    amount: 50,
+    date: "March 25, 2023",
+    type: "savings",
+  },
+];
