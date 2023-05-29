@@ -3,7 +3,7 @@ import { TbWallet } from "react-icons/tb";
 import { MdOutlineFoodBank } from "react-icons/md";
 import Header from "../components/Header";
 import SavingList from "../savingPlan/SavingList";
-import { savingsData } from "../commons/data";
+import { savingsData, expenseData } from "../commons/data";
 
 const transactionData = [
   {
@@ -61,7 +61,7 @@ function Dashboard() {
           borderRight='2px solid rgb(226, 226, 226)'
           className='left-col'
         >
-          <Flex flex={1} flexDir='column' gap={5} border='1px solid green'>
+          <Flex flex={1} flexDir='column' gap={5} >
             <Grid
               templateColumns='repeat(3, 1fr)'
               gap={6}
@@ -120,7 +120,7 @@ function Dashboard() {
                 </Flex>
               </GridItem>
             </Grid>
-            <Flex border='1px solid orange' flexDir='column' gap={3}>
+            <Flex flexDir='column' gap={3}>
               <Flex alignItems='center' justifyContent='space-between'>
                 <Heading as='h5' size='sm'>
                   Recent Transactions
@@ -178,11 +178,15 @@ function Dashboard() {
                 ))}
               </Flex>
             </Flex>
-            <Flex border='1px solid green'> Upcoming payments here</Flex>
+            <Flex
+            // border='1px solid green'
+            >
+              Upcoming payments here
+            </Flex>
           </Flex>
         </Flex>
         <Flex flex='35%' flexDir='column' p={6} gap={5} className='right-col'>
-          <Flex alignItems='center' justifyContent='space-between'>
+          {/* <Flex alignItems='center' justifyContent='space-between'>
             <Heading as='h5' size='sm'>
               Saving Goals
             </Heading>
@@ -192,8 +196,8 @@ function Dashboard() {
             >
               See all
             </Text>
-          </Flex>
-          <Grid
+          </Flex> */}
+          {/* <Grid
             templateColumns='repeat(3, 1fr)'
             gap={6}
             w='100%'
@@ -232,8 +236,8 @@ function Dashboard() {
                 Goal 3
               </Flex>
             </GridItem>
-          </Grid>
-          <Flex border='1px solid orange' flexDir='column' gap={3}>
+          </Grid> */}
+          <Flex flexDir='column' gap={3}>
             <Flex alignItems='center' justifyContent='space-between'>
               <Heading as='h5' size='sm'>
                 My Savings
@@ -247,7 +251,7 @@ function Dashboard() {
             </Flex>
             <SavingList data={newSavingsData} readOnly />
           </Flex>
-          <Flex border='1px solid green' flexDir='column' gap={3}>
+          <Flex flexDir='column' gap={3}>
             <Flex alignItems='center' justifyContent='space-between'>
               <Heading as='h5' size='sm'>
                 Total Spend
@@ -260,12 +264,29 @@ function Dashboard() {
               </Text>
             </Flex>
             <Flex flexDir='column' gap={5}>
-              <Flex border='1px solid red'>Category 1 here</Flex>
-              <Flex border='1px solid red'>Category 2 here</Flex>
-              <Flex border='1px solid red'>Category 3 here</Flex>
-              <Flex border='1px solid red'>Category 4 here</Flex>
-              <Flex border='1px solid red'>Category 5 here</Flex>
-              <Flex border='1px solid red'>Category 6 here</Flex>
+              {expenseData.map((item, index) => (
+                <Flex
+                  className='item'
+                  justifyContent='space-between'
+                  key={index}
+                >
+                  <Flex className='item-details' alignItems='center' gap={3}>
+                    <Icon
+                      as={MdOutlineFoodBank}
+                      fontSize='2em'
+                      color='#61BDBF'
+                    />
+                    <Text fontSize='sm' as='b'>
+                      {item.category}
+                    </Text>
+                  </Flex>
+                  <Flex className='item-amount' alignItems='center' gap={6}>
+                    <Text fontSize='sm' as='b'>
+                      {`$${item.total.toFixed(2)}`}
+                    </Text>
+                  </Flex>
+                </Flex>
+              ))}
             </Flex>
           </Flex>
         </Flex>
