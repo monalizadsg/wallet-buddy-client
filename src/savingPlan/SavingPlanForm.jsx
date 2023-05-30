@@ -6,8 +6,8 @@ function SavingPlanForm() {
   return (
     <>
       <form noValidate>
-        <TextField label='Description' type='text' />
-        <SelectField label='Category'>
+        <TextField name='description' label='Description' type='text' />
+        <SelectField name='category' label='Category'>
           {Object.entries(categories).map(([key, value], index) => {
             return (
               <option key={index} value={key}>
@@ -16,8 +16,12 @@ function SavingPlanForm() {
             );
           })}
         </SelectField>
-        <TextField label='Monthly Saving Amount' type='number' />
-        <TextField label='Target Amount' type='number' />
+        <TextField
+          name='monthlyAmount'
+          label='Monthly Saving Amount'
+          type='number'
+        />
+        <TextField name='targetAmount' label='Target Amount' type='number' />
       </form>
     </>
   );

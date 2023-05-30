@@ -11,7 +11,7 @@ const periodType = {
 function BudgetForm() {
   return (
     <form noValidate>
-      <SelectField label='Category'>
+      <SelectField name='category' label='Category'>
         {Object.entries(categories).map(([key, value], index) => {
           return (
             <option key={index} value={key}>
@@ -20,7 +20,7 @@ function BudgetForm() {
           );
         })}
       </SelectField>
-      <SelectField label='Period Type'>
+      <SelectField name='periodType' label='Period Type'>
         {Object.entries(periodType).map(([key, value], index) => {
           return (
             <option key={index} value={key}>
@@ -29,7 +29,7 @@ function BudgetForm() {
           );
         })}
       </SelectField>
-      <TextField label='Amount Limit' type='number' />
+      <TextField name='amountLimit' label='Amount Limit' type='number' />
     </form>
   );
 }
