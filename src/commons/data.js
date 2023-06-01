@@ -25,6 +25,37 @@ export const expenseData = [
   },
 ];
 
+export const transactionData = [
+  {
+    id: 1,
+    name: "Burger and chips",
+    category: "Food",
+    amount: 5,
+    date: "March 25, 2023",
+  },
+  {
+    id: 2,
+    name: "Hydro (May 2023)",
+    category: "Hydro",
+    amount: 50,
+    date: "March 25, 2023",
+  },
+  {
+    id: 3,
+    name: "ProtonVPN",
+    category: "Subscription",
+    amount: 13,
+    date: "March 26, 2023",
+  },
+  {
+    id: 4,
+    name: "Rental Fee (May)",
+    category: "Rent",
+    amount: 1750,
+    date: "March 26, 2023",
+  },
+];
+
 // TODO: convert to array of objects
 export const categories = {
   1: "Food",

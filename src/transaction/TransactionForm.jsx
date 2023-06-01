@@ -2,11 +2,13 @@ import { useState } from "react";
 import SelectField from "../components/SelectField";
 import TextField from "../components/TextField";
 import { categories } from "../commons/data";
-// import { expenseData } from "../commons/data";
+import FormAction from "../components/FormActions";
+import PropTypes from "prop-types";
+import { transactionData as tranxData } from "../commons/data";
 
-function TransactionForm() {
+function TransactionForm({ onClose, isEdit, onUpdateData }) {
   const [transactionData, setTransactionData] = useState({
-    description: "",
+    name: "",
     amount: "",
     category: "",
     date: "",
@@ -19,15 +21,25 @@ function TransactionForm() {
     console.log({ transactionData });
   };
 
-  const { description, amount, category, date } = transactionData;
+  const handleOnSubmit = () => {
+    const newData = {
+      id: tranxData.length + 1,
+      ...transactionData,
+      amount: Number(transactionData.amount),
+    };
+    onUpdateData(newData);
+    onClose();
+  };
+
+  const { name, amount, category, date } = transactionData;
 
   return (
     <>
       <form noValidate>
         <TextField
-          name='description'
+          name='name'
           label='Description'
-          value={description}
+          value={name}
           type='text'
           onChange={handleInputChange}
         />
@@ -59,9 +71,20 @@ function TransactionForm() {
           type='date'
           onChange={handleInputChange}
         />
+        <FormAction
+          onClose={onClose}
+          isEdit={isEdit}
+          onSubmit={handleOnSubmit}
+        />
       </form>
     </>
   );
 }
+
+TransactionForm.propTypes = {
+  onClose: PropTypes.func,
+  isEdit: PropTypes.bool,
+  onUpdateData: PropTypes.func,
+};
 
 export default TransactionForm;

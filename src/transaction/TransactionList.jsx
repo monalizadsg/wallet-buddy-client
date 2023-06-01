@@ -5,48 +5,25 @@ import FormDialog from "../components/FormDialog";
 import TransactionForm from "./TransactionForm";
 import { MdOutlineEdit } from "react-icons/md";
 import DeleteButton from "../components/DeleteButton";
+import { transactionData } from "./../commons/data";
 
-const transactionData = [
-  {
-    id: 1,
-    name: "Burger and chips",
-    category: "Food",
-    amount: 5,
-    date: "March 25, 2023",
-  },
-  {
-    id: 2,
-    name: "Hydro (May 2023)",
-    category: "Hydro",
-    amount: 50,
-    date: "March 25, 2023",
-  },
-  {
-    id: 3,
-    name: "ProtonVPN",
-    category: "Subscription",
-    amount: 13,
-    date: "March 26, 2023",
-  },
-  {
-    id: 4,
-    name: "Rental Fee (May)",
-    category: "Rent",
-    amount: 1750,
-    date: "March 26, 2023",
-  },
-];
+const getDataByDate = (data) => {
+  const dataByDate = data.reduce((group, item) => {
+    const { date } = item;
+    group[date] = group[date] ?? [];
+    group[date].push(item);
+    return group;
+  }, {});
 
-const dataByDate = transactionData.reduce((group, item) => {
-  const { date } = item;
-  group[date] = group[date] ?? [];
-  group[date].push(item);
-  return group;
-}, {});
+  return dataByDate;
+};
 
 function TransactionList() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(false);
+  const [data, setData] = useState([...transactionData]);
+
+  const dataByDate = getDataByDate(data);
 
   const handleOnClickEdit = () => {
     onOpen();
@@ -56,6 +33,11 @@ function TransactionList() {
   const handleOnClickAdd = () => {
     onOpen();
     setIsEditing(false);
+  };
+
+  const handleOnUpdateData = (value) => {
+    const newData = [...data, value];
+    setData(newData);
   };
 
   return (
@@ -76,9 +58,12 @@ function TransactionList() {
           title={`${isEditing ? "Edit" : "Add"} Transaction`}
           isOpen={isOpen}
           onClose={onClose}
-          isEdit={isEditing}
         >
-          <TransactionForm />
+          <TransactionForm
+            onClose={onClose}
+            isEdit={isEditing}
+            onUpdateData={handleOnUpdateData}
+          />
         </FormDialog>
       </div>
       <div className='content'>
