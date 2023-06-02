@@ -6,13 +6,17 @@ import FormAction from "../components/FormActions";
 import PropTypes from "prop-types";
 import { transactionData as tranxData } from "../commons/data";
 
-function TransactionForm({ onClose, isEdit, onUpdateData }) {
-  const [transactionData, setTransactionData] = useState({
+
+function TransactionForm({ onClose, isEdit, onUpdateData, selectedItem }) {
+  const initialData = {
     name: "",
     amount: "",
     category: "",
     date: "",
-  });
+  };
+  const [transactionData, setTransactionData] = useState(
+    selectedItem || initialData
+  );
   const handleInputChange = (event) => {
     // console.log(e.target.name);
     // console.log(e.target.value);
@@ -32,6 +36,7 @@ function TransactionForm({ onClose, isEdit, onUpdateData }) {
   };
 
   const { name, amount, category, date } = transactionData;
+  // const { name, amount, category } = transactionData;
 
   return (
     <>
@@ -85,6 +90,7 @@ TransactionForm.propTypes = {
   onClose: PropTypes.func,
   isEdit: PropTypes.bool,
   onUpdateData: PropTypes.func,
+  selectedItem: PropTypes.object,
 };
 
 export default TransactionForm;

@@ -6,6 +6,7 @@ import TransactionForm from "./TransactionForm";
 import { MdOutlineEdit } from "react-icons/md";
 import DeleteButton from "../components/DeleteButton";
 import { transactionData } from "./../commons/data";
+import format from "date-fns/format";
 
 const getDataByDate = (data) => {
   const dataByDate = data.reduce((group, item) => {
@@ -22,12 +23,14 @@ function TransactionList() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState([...transactionData]);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const dataByDate = getDataByDate(data);
 
-  const handleOnClickEdit = () => {
+  const handleOnClickEdit = (item) => {
     onOpen();
     setIsEditing(true);
+    setSelectedItem(item);
   };
 
   const handleOnClickAdd = () => {
@@ -63,6 +66,7 @@ function TransactionList() {
             onClose={onClose}
             isEdit={isEditing}
             onUpdateData={handleOnUpdateData}
+            selectedItem={selectedItem}
           />
         </FormDialog>
       </div>
@@ -71,7 +75,9 @@ function TransactionList() {
           {Object.entries(dataByDate).map(([date, values], index) => {
             return (
               <React.Fragment key={index}>
-                <div className='date'>{date}</div>
+                <div className='date'>
+                  {format(new Date(date), "MMM dd, yyyy")}
+                </div>
                 {values.map((item, index) => {
                   return (
                     <Flex
@@ -95,7 +101,7 @@ function TransactionList() {
                       </div>
                       <Flex className='item-amount' alignItems='center' gap={6}>
                         <Text fontSize='sm' as='b'>
-                          {`$${item.amount.toFixed(2)}`}
+                          {`$${Number(item.amount).toFixed(2)}`}
                         </Text>
                         <Flex gap={2}>
                           <Icon
@@ -103,7 +109,7 @@ function TransactionList() {
                             cursor='pointer'
                             opacity={0.5}
                             _hover={{ color: "teal.500", opacity: 1 }}
-                            onClick={handleOnClickEdit}
+                            onClick={() => handleOnClickEdit(item)}
                           />
                           <DeleteButton title='Transaction' />
                         </Flex>
