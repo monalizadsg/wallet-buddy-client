@@ -43,6 +43,11 @@ function TransactionList() {
     setData(newData);
   };
 
+  const handleOnClose = () => {
+    setSelectedItem(null);
+    onClose();
+  };
+
   return (
     <Flex flexDir='column' w='100%'>
       <div className='title'>
@@ -60,10 +65,10 @@ function TransactionList() {
         <FormDialog
           title={`${isEditing ? "Edit" : "Add"} Transaction`}
           isOpen={isOpen}
-          onClose={onClose}
+          onClose={handleOnClose}
         >
           <TransactionForm
-            onClose={onClose}
+            onClose={handleOnClose}
             isEdit={isEditing}
             onUpdateData={handleOnUpdateData}
             selectedItem={selectedItem}
