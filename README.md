@@ -1,2 +1,2 @@
-# budgetTrackr
-budget app remake to practice react + vite
+# wallet-buddy
+money manager app that will help manage your finances
