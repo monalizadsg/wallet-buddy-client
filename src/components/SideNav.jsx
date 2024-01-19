@@ -11,40 +11,37 @@ import { PropTypes } from "prop-types";
 
 function SideNav() {
   return (
-    <>
-      <Flex flex='20%' flexDir='column' className='sidenav'>
-        <Flex className='logo' justifyContent='center' alignItems='center'>
-          BudgetTrackr
-        </Flex>
-        <Flex
-          p='5%'
-          paddingLeft={8}
-          paddingRight={8}
-          flexDir='column'
-          w='100%'
-          as='nav'
-        >
-          <NavItem icon={TbLayoutGrid} title='Dashboard' path='/' />
-          <NavItem
-            icon={TbArrowsDoubleNeSw}
-            title='Transaction'
-            path='/transaction'
-          />
-          <NavItem icon={TbPigMoney} title='Budget' path='/budget' />
-          <NavItem icon={TbTargetArrow} title='Save & Invest' path='/savings' />
-        </Flex>
+    <Flex w="30%" flex="30%" flexDir="column" className="sidenav">
+      <Flex className="logo" justifyContent="center" alignItems="center">
+        BudgetTrackr
       </Flex>
-      <Outlet />
-    </>
+      <Flex
+        p="5%"
+        paddingLeft={8}
+        paddingRight={8}
+        flexDir="column"
+        w="100%"
+        as="nav"
+      >
+        <NavItem icon={TbLayoutGrid} title="Dashboard" path="/" />
+        <NavItem
+          icon={TbArrowsDoubleNeSw}
+          title="Transaction"
+          path="/transaction"
+        />
+        <NavItem icon={TbPigMoney} title="Budget" path="/budget" />
+        <NavItem icon={TbTargetArrow} title="Save & Invest" path="/savings" />
+      </Flex>
+    </Flex>
   );
 }
 
 function NavItem({ icon, title, path }) {
   return (
-    <Flex w='100%' className='nav-item'>
+    <Flex w="100%" className="nav-item">
       <NavLink to={path}>
         <Flex>
-          <Icon as={icon} fontSize='xl' color='gray.500' />
+          <Icon as={icon} fontSize="xl" color="gray.500" />
           <Text ml={5}>{title}</Text>
         </Flex>
       </NavLink>
