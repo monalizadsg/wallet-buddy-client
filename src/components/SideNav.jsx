@@ -1,5 +1,5 @@
 import { Flex, Text, Icon } from "@chakra-ui/react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   TbArrowsDoubleNeSw,
   TbPigMoney,

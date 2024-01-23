@@ -9,10 +9,14 @@ import PropTypes from "prop-types";
 function TextField({ name, label, type, value, onChange, error }) {
   return (
     <FormControl isRequired mb={3}>
-      <FormLabel mb={1} fontSize='xs'>
-        {label}
-      </FormLabel>
-      <Input type={type} name={name} value={value} onChange={onChange} />
+      <FormLabel mb={1}>{label}</FormLabel>
+      <Input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={`Enter ${name}`}
+      />
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
