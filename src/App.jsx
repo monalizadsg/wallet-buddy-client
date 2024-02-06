@@ -7,12 +7,14 @@ import Dashboard from "./dashboard/Dashboard";
 import SavingPlan from "./savingPlan/SavingPlan";
 import PrivateRoute from "./app/PrivateRoute";
 import Login from "./auth/Login";
+import Landing from "./app/Landing";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<PrivateRoute />}>
-        <Route index element={<Dashboard />} />
+      <Route path="/" element={<Landing />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transaction" element={<Transaction />} />
         <Route path="/budget" element={<Budget />} />
         <Route path="/savings" element={<SavingPlan />} />
