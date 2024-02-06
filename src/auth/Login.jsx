@@ -12,6 +12,7 @@ import {
 import PasswordInput from "../components/PasswordInput";
 import { useNavigate } from "react-router-dom";
 import TextField from "../components/TextField";
+import { login, register } from "./authService";
 
 function Login() {
   const [user, setUser] = useState({
@@ -26,10 +27,31 @@ function Login() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleOnSubmit = async (event, btnClicked) => {
     event.preventDefault();
     const { username, password } = user;
-    // TODO: update authentication
+
+    // validate fields
+    if (!username || !password) {
+      console.log("Username or password is empty. Please enter valid input!");
+      setErrors("Username or password is empty. Please enter valid input!");
+    }
+
+    if (btnClicked == "register") {
+      try {
+        await register(user);
+        navigate("/dashboard");
+      } catch (e) {
+        setErrors(e.response.data.message);
+      }
+    } else {
+      try {
+        await login(user);
+        navigate("/dashboard");
+      } catch (e) {
+        setErrors(e.response.data.message);
+      }
+    }
   };
 
   return (
@@ -54,7 +76,7 @@ function Login() {
               alignItems="center"
             >
               <Box mt={2}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleOnSubmit}>
                   <VStack spacing={2}>
                     <TextField
                       label="Username"
@@ -66,8 +88,10 @@ function Login() {
                     />
                     <PasswordInput onChange={handleInputChange} />
                     {errors && (
-                      <Text style={{ color: "red", fontWeight: 600 }}>
-                        {errors.username}
+                      <Text
+                        style={{ color: "red", fontWeight: 400, fontSize: 12 }}
+                      >
+                        {errors}
                       </Text>
                     )}
                   </VStack>
@@ -80,6 +104,7 @@ function Login() {
                       type="submit"
                       color="#fff"
                       _hover={{ bgColor: "#16795b" }}
+                      onClick={(e) => handleOnSubmit(e, "login")}
                     >
                       Sign In
                     </Button>
@@ -91,6 +116,7 @@ function Login() {
                       color="#26CA99"
                       _hover={{ color: "#16795b" }}
                       variant="ghost"
+                      onClick={(e) => handleOnSubmit(e, "register")}
                     >
                       Create Account
                     </Button>
