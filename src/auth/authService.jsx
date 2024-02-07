@@ -1,7 +1,7 @@
 import api from "../commons/api";
 
 export const register = async ({ username, password }) => {
-  const result = await api.post("/api/user", {
+  const result = await api.post("/users", {
     username,
     password,
   });
@@ -9,7 +9,7 @@ export const register = async ({ username, password }) => {
 };
 
 export const login = async ({ username, password }) => {
-  const result = await api.post("/api/auth", { username, password });
+  const result = await api.post("/auth", { username, password });
   localStorage.setItem(import.meta.env.VITE_TOKEN_KEY, result.data.token);
   localStorage.setItem("id", result.data.id);
 };
