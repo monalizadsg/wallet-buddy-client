@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Heading, Button, Text, Flex, Icon } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import FormDialog from "../components/FormDialog";
@@ -7,6 +7,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import DeleteButton from "../components/DeleteButton";
 import { transactionData } from "./../commons/data";
 import format from "date-fns/format";
+import { getCategories } from "./transactionService";
 
 const getDataByDate = (data) => {
   const dataByDate = data.reduce((group, item) => {
@@ -24,8 +25,18 @@ function TransactionList() {
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState([...transactionData]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const dataByDate = getDataByDate(data);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categoriesData = await getCategories();
+      console.log(categoriesData);
+      setCategories(categoriesData);
+    };
+    fetchCategories();
+  }, []);
 
   const handleOnClickEdit = (item) => {
     onOpen();
@@ -49,16 +60,16 @@ function TransactionList() {
   };
 
   return (
-    <Flex flexDir='column' w='100%'>
-      <div className='title'>
-        <Heading as='h4' size='md'>
+    <Flex flexDir="column" w="100%">
+      <div className="title">
+        <Heading as="h4" size="md">
           Transactions
         </Heading>
         <Button
           onClick={handleOnClickAdd}
-          colorScheme='teal'
-          variant='outline'
-          size='xs'
+          colorScheme="teal"
+          variant="outline"
+          size="xs"
         >
           Add
         </Button>
@@ -68,6 +79,7 @@ function TransactionList() {
           onClose={handleOnClose}
         >
           <TransactionForm
+            categories={categories}
             onClose={handleOnClose}
             isEdit={isEditing}
             onUpdateData={handleOnUpdateData}
@@ -75,18 +87,18 @@ function TransactionList() {
           />
         </FormDialog>
       </div>
-      <div className='content'>
+      <div className="content">
         <div>
           {Object.entries(dataByDate).map(([date, values], index) => {
             return (
               <React.Fragment key={index}>
-                <div className='date'>
+                <div className="date">
                   {format(new Date(date), "MMM dd, yyyy")}
                 </div>
                 {values.map((item, index) => {
                   return (
                     <Flex
-                      className='item'
+                      className="item"
                       key={index}
                       style={{
                         backgroundColor: "#EEEFEA",
@@ -95,28 +107,28 @@ function TransactionList() {
                         marginBottom: 12,
                       }}
                     >
-                      <div className='item-details'>
-                        <span className='icon'></span>
+                      <div className="item-details">
+                        <span className="icon"></span>
                         <div>
-                          <Text fontSize='sm' as='b'>
+                          <Text fontSize="sm" as="b">
                             {item.name}
                           </Text>
-                          <Text fontSize='xs'>{item.category}</Text>
+                          <Text fontSize="xs">{item.category}</Text>
                         </div>
                       </div>
-                      <Flex className='item-amount' alignItems='center' gap={6}>
-                        <Text fontSize='sm' as='b'>
+                      <Flex className="item-amount" alignItems="center" gap={6}>
+                        <Text fontSize="sm" as="b">
                           {`$${Number(item.amount).toFixed(2)}`}
                         </Text>
                         <Flex gap={2}>
                           <Icon
                             as={MdOutlineEdit}
-                            cursor='pointer'
+                            cursor="pointer"
                             opacity={0.5}
                             _hover={{ color: "teal.500", opacity: 1 }}
                             onClick={() => handleOnClickEdit(item)}
                           />
-                          <DeleteButton title='Transaction' />
+                          <DeleteButton title="Transaction" />
                         </Flex>
                       </Flex>
                     </Flex>

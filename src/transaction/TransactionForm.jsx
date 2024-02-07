@@ -1,15 +1,19 @@
 import { useState } from "react";
-import SelectField from "../components/SelectField";
 import TextField from "../components/TextField";
-import { categories } from "../commons/data";
 import FormAction from "../components/FormActions";
 import PropTypes from "prop-types";
 import { transactionData as tranxData } from "../commons/data";
+import CategorySelect from "../components/CategorySelect";
 
-
-function TransactionForm({ onClose, isEdit, onUpdateData, selectedItem }) {
+function TransactionForm({
+  onClose,
+  isEdit,
+  onUpdateData,
+  selectedItem,
+  categories,
+}) {
   const initialData = {
-    name: "",
+    description: "",
     amount: "",
     category: "",
     date: "",
@@ -17,12 +21,12 @@ function TransactionForm({ onClose, isEdit, onUpdateData, selectedItem }) {
   const [transactionData, setTransactionData] = useState(
     selectedItem || initialData
   );
+
   const handleInputChange = (event) => {
     // console.log(e.target.name);
     // console.log(e.target.value);
     const { name, value } = event.target;
     setTransactionData({ ...transactionData, [name]: value });
-    console.log({ transactionData });
   };
 
   const handleOnSubmit = () => {
@@ -42,38 +46,29 @@ function TransactionForm({ onClose, isEdit, onUpdateData, selectedItem }) {
     <>
       <form noValidate>
         <TextField
-          name='name'
-          label='Description'
+          name="description"
+          label="Description"
           value={name}
-          type='text'
+          type="text"
           onChange={handleInputChange}
         />
         <TextField
-          name='amount'
+          name="amount"
           value={amount}
-          label='Amount'
-          type='number'
+          label="Amount"
+          type="number"
           onChange={handleInputChange}
         />
-        <SelectField
-          name='category'
-          label='Category'
+        <CategorySelect
+          categories={categories}
           value={category}
           onChange={handleInputChange}
-        >
-          {Object.entries(categories).map(([key, value], index) => {
-            return (
-              <option key={index} value={key}>
-                {value}
-              </option>
-            );
-          })}
-        </SelectField>
+        />
         <TextField
-          name='date'
-          label='Date'
+          name="date"
+          label="Date"
           value={date}
-          type='date'
+          type="date"
           onChange={handleInputChange}
         />
         <FormAction
