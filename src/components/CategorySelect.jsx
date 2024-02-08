@@ -22,14 +22,14 @@ const CategorySelect = ({ categories, value, onChange }) => {
         >
           <optgroup label="Income">
             {incomeCategories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
           </optgroup>
           <optgroup label="Expense">
             {expenseCategories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
