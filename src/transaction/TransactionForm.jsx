@@ -2,13 +2,15 @@ import { useState } from "react";
 import TextField from "../components/TextField";
 import FormAction from "../components/FormActions";
 import PropTypes from "prop-types";
-import { transactionData as tranxData } from "../commons/data";
 import CategorySelect from "../components/CategorySelect";
+import format from "date-fns/format";
+import { createTransaction } from "./transactionService";
+import { getUserId } from "../commons/utils";
 
 function TransactionForm({
   onClose,
   isEdit,
-  onUpdateData,
+  onSaveSuccess,
   selectedItem,
   categories,
 }) {
@@ -16,31 +18,50 @@ function TransactionForm({
     description: "",
     amount: "",
     category: "",
-    date: "",
+    date: format(new Date(), "yyyy-MM-dd"),
   };
   const [transactionData, setTransactionData] = useState(
     selectedItem || initialData
   );
 
   const handleInputChange = (event) => {
-    // console.log(e.target.name);
-    // console.log(e.target.value);
     const { name, value } = event.target;
     setTransactionData({ ...transactionData, [name]: value });
   };
 
-  const handleOnSubmit = () => {
-    const newData = {
-      id: tranxData.length + 1,
+  const handleDateChange = (event) => {
+    const date = event.target.value;
+    console.log({ date });
+    setTransactionData({
       ...transactionData,
+      date: format(new Date(date), "yyyy-MM-dd"),
+    });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    const userId = getUserId();
+    console.log(userId);
+
+    const newData = {
+      ...transactionData,
+      categoryId: category,
       amount: Number(transactionData.amount),
+      userId,
     };
-    onUpdateData(newData);
-    onClose();
+
+    try {
+      const result = await createTransaction(newData);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+    //TODO: pass to the list to display new data
+    // onSaveSuccess(newData);
+    // onClose();
   };
 
   const { name, amount, category, date } = transactionData;
-  // const { name, amount, category } = transactionData;
 
   return (
     <>
@@ -69,7 +90,7 @@ function TransactionForm({
           label="Date"
           value={date}
           type="date"
-          onChange={handleInputChange}
+          onChange={handleDateChange}
         />
         <FormAction
           onClose={onClose}
