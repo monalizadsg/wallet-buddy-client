@@ -6,7 +6,8 @@ export async function getCategories() {
 }
 
 export async function getAllTransactions(userId) {
-  return await api.get(`/transactions/${userId}`);
+  const response = await api.get(`/transactions/${userId}`);
+  return response.data;
 }
 
 export async function createTransaction(data) {

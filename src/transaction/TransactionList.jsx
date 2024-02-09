@@ -5,9 +5,9 @@ import FormDialog from "../components/FormDialog";
 import TransactionForm from "./TransactionForm";
 import { MdOutlineEdit } from "react-icons/md";
 import DeleteButton from "../components/DeleteButton";
-import { transactionData } from "./../commons/data";
 import format from "date-fns/format";
-import { getCategories } from "./transactionService";
+import { getAllTransactions, getCategories } from "./transactionService";
+import { getUserId } from "../commons/utils";
 
 const getDataByDate = (data) => {
   const dataByDate = data.reduce((group, item) => {
@@ -23,19 +23,29 @@ const getDataByDate = (data) => {
 function TransactionList() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(false);
-  const [data, setData] = useState([...transactionData]);
+  const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [categories, setCategories] = useState([]);
 
   const dataByDate = getDataByDate(data);
+  const userId = getUserId();
 
   useEffect(() => {
     const fetchCategories = async () => {
       const categoriesData = await getCategories();
-      console.log(categoriesData);
       setCategories(categoriesData);
     };
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const transactionData = await getAllTransactions(userId);
+      console.log(transactionData);
+      setData(transactionData);
+    };
+
+    fetchTransactions();
   }, []);
 
   const handleOnClickEdit = (item) => {
@@ -111,9 +121,9 @@ function TransactionList() {
                         <span className="icon"></span>
                         <div>
                           <Text fontSize="sm" as="b">
-                            {item.name}
+                            {item.description}
                           </Text>
-                          <Text fontSize="xs">{item.category}</Text>
+                          <Text fontSize="xs">{item.category.name}</Text>
                         </div>
                       </div>
                       <Flex className="item-amount" alignItems="center" gap={6}>
