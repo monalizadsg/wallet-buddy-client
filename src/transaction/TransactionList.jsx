@@ -6,7 +6,11 @@ import TransactionForm from "./TransactionForm";
 import { MdOutlineEdit } from "react-icons/md";
 import DeleteButton from "../components/DeleteButton";
 import format from "date-fns/format";
-import { getAllTransactions, getCategories } from "./transactionService";
+import {
+  deleteTransaction,
+  getAllTransactions,
+  getCategories,
+} from "./transactionService";
 import { getUserId } from "../commons/utils";
 import { CustomToast } from "../commons/utils";
 
@@ -84,6 +88,16 @@ function TransactionList() {
     onClose();
   };
 
+  const handleOnClickDelete = async (id) => {
+    await deleteTransaction(id);
+    const newData = data.filter((item) => item._id != id);
+    setData(newData);
+    addToast({
+      title: "Transaction has been deleted",
+      type: "success",
+    });
+  };
+
   return (
     <Flex flexDir="column" w="100%">
       <div className="title">
@@ -155,7 +169,10 @@ function TransactionList() {
                             _hover={{ color: "teal.500", opacity: 1 }}
                             onClick={() => handleOnClickEdit(item)}
                           />
-                          <DeleteButton title="Transaction" />
+                          <DeleteButton
+                            title="Transaction"
+                            onDelete={() => handleOnClickDelete(item._id)}
+                          />
                         </Flex>
                       </Flex>
                     </Flex>

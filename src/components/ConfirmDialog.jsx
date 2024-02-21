@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-function ConfirmDialog({ title, isOpen, onClose }) {
+function ConfirmDialog({ title, isOpen, onClose, onDelete }) {
   const cancelRef = React.useRef();
   return (
     <AlertDialog
@@ -21,7 +21,7 @@ function ConfirmDialog({ title, isOpen, onClose }) {
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete {title}
           </AlertDialogHeader>
 
@@ -34,7 +34,7 @@ function ConfirmDialog({ title, isOpen, onClose }) {
             <Button ref={cancelRef} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='red' onClick={onClose} ml={3}>
+            <Button colorScheme="red" onClick={onDelete} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

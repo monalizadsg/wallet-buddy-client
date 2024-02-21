@@ -4,18 +4,29 @@ import { useDisclosure } from "@chakra-ui/react";
 import ConfirmDialog from "./ConfirmDialog";
 import PropTypes from "prop-types";
 
-function DeleteButton({ title }) {
+function DeleteButton({ title, onDelete }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleDelete = () => {
+    onDelete();
+    onClose();
+  };
+
   return (
     <>
       <Icon
         as={MdDeleteOutline}
         onClick={onOpen}
-        cursor='pointer'
+        cursor="pointer"
         opacity={0.8}
         _hover={{ color: "teal.500", opacity: 1 }}
       />
-      <ConfirmDialog title={title} isOpen={isOpen} onClose={onClose} />
+      <ConfirmDialog
+        title={title}
+        isOpen={isOpen}
+        onClose={onClose}
+        onDelete={handleDelete}
+      />
     </>
   );
 }
