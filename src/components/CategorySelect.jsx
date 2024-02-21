@@ -17,7 +17,7 @@ const CategorySelect = ({ categories, value, onChange }) => {
         <Select
           name="category"
           placeholder="Select Category"
-          value={value}
+          value={value._id}
           onChange={onChange}
         >
           <optgroup label="Income">

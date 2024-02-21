@@ -4,13 +4,13 @@ import FormAction from "../components/FormActions";
 import PropTypes from "prop-types";
 import CategorySelect from "../components/CategorySelect";
 import format from "date-fns/format";
-import { createTransaction } from "./transactionService";
+import { createTransaction, updateTransaction } from "./transactionService";
 import { getUserId } from "../commons/utils";
 
 function TransactionForm({
   onClose,
   isEdit,
-  onSaveSuccess,
+  onUpdateData,
   selectedItem,
   categories,
 }) {
@@ -45,23 +45,26 @@ function TransactionForm({
 
     const newData = {
       ...transactionData,
-      categoryId: category,
       amount: Number(transactionData.amount),
       userId,
     };
 
+    let upsertPromise = null;
+    if (selectedItem?._id) {
+      upsertPromise = updateTransaction(newData, selectedItem._id);
+    } else {
+      upsertPromise = createTransaction(newData);
+    }
+
     try {
-      const result = await createTransaction(newData);
-      console.log(result);
+      await upsertPromise;
+      onUpdateData();
     } catch (error) {
       console.log(error);
     }
-    //TODO: pass to the list to display new data
-    // onSaveSuccess(newData);
-    // onClose();
   };
 
-  const { name, amount, category, date } = transactionData;
+  const { description, amount, category, date } = transactionData;
 
   return (
     <>
@@ -69,7 +72,7 @@ function TransactionForm({
         <TextField
           name="description"
           label="Description"
-          value={name}
+          value={description}
           type="text"
           onChange={handleInputChange}
         />
@@ -88,7 +91,7 @@ function TransactionForm({
         <TextField
           name="date"
           label="Date"
-          value={date}
+          value={format(new Date(date), "yyyy-MM-dd")}
           type="date"
           onChange={handleDateChange}
         />

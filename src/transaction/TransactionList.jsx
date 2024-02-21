@@ -8,6 +8,7 @@ import DeleteButton from "../components/DeleteButton";
 import format from "date-fns/format";
 import { getAllTransactions, getCategories } from "./transactionService";
 import { getUserId } from "../commons/utils";
+import { CustomToast } from "../commons/utils";
 
 const getDataByDate = (data) => {
   const dataByDate = data.reduce((group, item) => {
@@ -26,6 +27,7 @@ function TransactionList() {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [categories, setCategories] = useState([]);
+  const { addToast } = CustomToast();
 
   const dataByDate = getDataByDate(data);
   const userId = getUserId();
@@ -38,13 +40,13 @@ function TransactionList() {
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      const transactionData = await getAllTransactions(userId);
-      console.log(transactionData);
-      setData(transactionData);
-    };
+  const fetchTransactions = async () => {
+    const transactionData = await getAllTransactions(userId);
+    // console.log(transactionData);
+    setData(transactionData);
+  };
 
+  useEffect(() => {
     fetchTransactions();
   }, []);
 
@@ -59,9 +61,22 @@ function TransactionList() {
     setIsEditing(false);
   };
 
-  const handleOnUpdateData = (value) => {
-    const newData = [...data, value];
-    setData(newData);
+  const handleOnCreateSuccess = () => {
+    fetchTransactions();
+    handleOnClose();
+    addToast({
+      title: "Transaction has been added!",
+      type: "success",
+    });
+  };
+
+  const handleOnUpdateSuccess = () => {
+    fetchTransactions();
+    handleOnClose();
+    addToast({
+      title: "Transaction has been updated!",
+      type: "success",
+    });
   };
 
   const handleOnClose = () => {
@@ -92,7 +107,9 @@ function TransactionList() {
             categories={categories}
             onClose={handleOnClose}
             isEdit={isEditing}
-            onUpdateData={handleOnUpdateData}
+            onUpdateData={
+              selectedItem ? handleOnUpdateSuccess : handleOnCreateSuccess
+            }
             selectedItem={selectedItem}
           />
         </FormDialog>
